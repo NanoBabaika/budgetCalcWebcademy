@@ -10,6 +10,11 @@ const title = document.querySelector('#title');
 const value = document.querySelector('#value');
 const incomeList = document.querySelector('#incomes-list');
 const expList = document.querySelector('#expenses-list');
+// Элементы на странице
+const budgetDisplay = document.querySelector('#budget');
+const incomeDisplay = document.querySelector('#total-income');
+const expanseDisplay = document.querySelector('#total-expense');
+const expansePercent = document.querySelector('#expense-percents-wrapper');
 
 
 function insertTestData() {
@@ -66,12 +71,33 @@ function calcBudget () {
 
      const totalBudget = totalIncome - totalExpense;
 
+     expendsPercents = 0;
+
+     if(totalIncome > 0) {
+         expendsPercents = Math.round((totalExpense * 100) / totalIncome);
+     } 
 
 
      console.log('totalExpense', totalExpense);
      console.log('totalIncome', totalIncome);
      console.log('totalBudget', totalBudget);
+     console.log('expendsPercents', expendsPercents);
 
+        // budgetDisplay
+        // incomeDisplay
+        // expanseDisplay
+        // expansePercent
+
+     budgetDisplay.innerHTML = totalBudget;
+     incomeDisplay.innerHTML = totalIncome;
+     expanseDisplay.innerHTML = totalExpense;
+     if(expendsPercents) {
+        const expenseHTML = `<div class="badge">${expendsPercents}%</div>`;
+        expansePercent.innerHTML = expenseHTML;
+    } else {
+        expansePercent.innerHTML = '';
+     }
+        
 }
 
 insertTestData();
