@@ -1,28 +1,69 @@
 
 console.log('Lets code! {^_^}');
+console.log('Logs:');
 
 
 const budget = [];
-
 const form = document.querySelector('#form');
-
 const type = document.querySelector('#type');
 const title = document.querySelector('#title');
 const value = document.querySelector('#value');
-
 const incomeList = document.querySelector('#incomes-list');
 const expList = document.querySelector('#expenses-list');
 
 
+function insertTestData() {
+    const testData = [
+        { type: 'inc', title: 'Фриланс',value:500,},
+        { type: 'inc', title: 'Работа',value:1500,},
+        { type: 'inc', title: 'Фриланс',value:40000,},
+        { type: 'inc', title: 'Зарплата',value:25000,},
+        { type: 'inc', title: 'Фриланс',value:2500,},
+
+        { type: 'exp', title: 'Ресторан',value:3500,},
+        { type: 'exp', title: 'Такси',value:700,},
+        { type: 'exp', title: 'Кафе',value:2500,},
+        { type: 'exp', title: 'Развлечения',value:2500,},
+    ];
+
+    function getRandomIndex(max) {
+       return  Math.floor(Math.random() * max);
+    }
+
+   const randomIndexTestData = getRandomIndex(testData.length);
+
+    const randomData = testData[randomIndexTestData];
+
+   type.value = randomData.type;
+   title.value =  randomData.title;
+   value.value =  randomData.value;
+}
+
+function clearForm() {
+    form.reset();
+}
+ 
+insertTestData();
+
 form.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    // проверка формы на заполненность
-    if(title.value === '') {
+    // проверка формы на заполненность заголовок
+    if(title.value.trim() === '') {
         title.classList.add('form__input--error');
+        return;
     } else {
         title.classList.remove('form__input--error');
     }
+
+    // проверка формы на заполненность значение
+    if(value.value.trim() === '' || +value.value <= 0) {
+        value.classList.add('form__input--error');
+        return;
+    } else {
+        value.classList.remove('form__input--error');
+    }
+
 
 
 
@@ -44,7 +85,7 @@ form.addEventListener('submit', function (event) {
     const record = {
         id: id,
         type:type.value,
-        title:title.value,
+        title:title.value.trim(),
         value:value.value,
     };
  
@@ -83,8 +124,31 @@ form.addEventListener('submit', function (event) {
         expList.insertAdjacentHTML('afterbegin', htmlExp); 
     }
 
-    
+    console.log(budget);
+    clearForm();
+    insertTestData();
+})
 
+
+// удаление записи 
+document.body.addEventListener ('click', function (event) {
+    if(event.target.closest('button.item__remove')) {
+ 
+        const  recordElement = event.target.closest('li.budget-list__item');
+        
+        const id = +recordElement.dataset.id;
+
+        const index = budget.findIndex(function (element) {         
+            if(id === element.id) {
+                return true;        
+            }
+        })
+
+         // Удаление из массива
+        budget.splice(index, 1);
+        // Удаление со страницы
+        recordElement.remove();
+    }
 })
 
 
@@ -99,7 +163,4 @@ form.addEventListener('submit', function (event) {
 
 
 
-
-
-
-// урок 7й из 8ми
+// урок 11 из 15
