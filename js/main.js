@@ -43,7 +43,39 @@ function clearForm() {
     form.reset();
 }
  
+function calcBudget () {
+ 
+    // все доходы
+    const totalIncome =  budget.reduce(function (total, element) {
+        if(element.type === 'inc') {
+            return total + element.value;
+        } else {
+            return total;
+        }
+     }, 0);
+
+     // все расходы
+    const totalExpense =  budget.reduce(function (total, element) {
+        if(element.type === 'exp') {
+            return total + element.value;
+        } else {
+            return total;
+        }
+     }, 0);
+
+
+     const totalBudget = totalIncome - totalExpense;
+
+
+
+     console.log('totalExpense', totalExpense);
+     console.log('totalIncome', totalIncome);
+     console.log('totalBudget', totalBudget);
+
+}
+
 insertTestData();
+calcBudget();
 
 form.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -86,7 +118,7 @@ form.addEventListener('submit', function (event) {
         id: id,
         type:type.value,
         title:title.value.trim(),
-        value:value.value,
+        value: +value.value,
     };
  
     budget.push(record);
@@ -124,6 +156,10 @@ form.addEventListener('submit', function (event) {
         expList.insertAdjacentHTML('afterbegin', htmlExp); 
     }
 
+
+    calcBudget ();
+
+
     console.log(budget);
     clearForm();
     insertTestData();
@@ -148,6 +184,8 @@ document.body.addEventListener ('click', function (event) {
         budget.splice(index, 1);
         // Удаление со страницы
         recordElement.remove();
+
+        calcBudget();
     }
 })
 
@@ -160,7 +198,4 @@ document.body.addEventListener ('click', function (event) {
 
 
 
-
-
-
-// урок 11 из 15
+// урок 12 из 15 (1:44)
