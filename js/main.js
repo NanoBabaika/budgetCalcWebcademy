@@ -16,6 +16,17 @@ const incomeDisplay = document.querySelector('#total-income');
 const expanseDisplay = document.querySelector('#total-expense');
 const expansePercent = document.querySelector('#expense-percents-wrapper');
 
+// отображение даты 
+const displayMonthHTML = document.querySelector('#month');
+const displayYearHTML = document.querySelector('#year');
+
+
+
+const priceFromatter = new Intl.NumberFormat('ru-Ru', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0
+})
 
 function insertTestData() {
     const testData = [
@@ -88,9 +99,11 @@ function calcBudget () {
         // expanseDisplay
         // expansePercent
 
-     budgetDisplay.innerHTML = totalBudget;
-     incomeDisplay.innerHTML = totalIncome;
-     expanseDisplay.innerHTML = totalExpense;
+     budgetDisplay.innerHTML = priceFromatter.format(totalBudget);
+     incomeDisplay.innerHTML = '+' + priceFromatter.format(totalIncome);
+     expanseDisplay.innerHTML = '-' + priceFromatter.format(totalExpense);
+     
+     
      if(expendsPercents) {
         const expenseHTML = `<div class="badge">${expendsPercents}%</div>`;
         expansePercent.innerHTML = expenseHTML;
@@ -98,8 +111,26 @@ function calcBudget () {
         expansePercent.innerHTML = '';
      }
         
+
 }
 
+function displayMonth() {
+    const now = new Date();
+    const year = now.getFullYear();
+
+    const timeFormatter = new Intl.DateTimeFormat('ru-RU', {
+        month: 'long'
+    })
+     
+    const month = timeFormatter.format(now);
+
+    displayMonthHTML.innerHTML = month;
+    displayYearHTML.innerHTML = year;
+    
+    
+}
+
+displayMonth();
 insertTestData();
 calcBudget();
 
@@ -157,7 +188,7 @@ form.addEventListener('submit', function (event) {
                 <li data-id ="${record.id}" class="budget-list__item item item--income">
                     <div class="item__title">${record.title}</div>
                     <div class="item__right">
-                    <div class="item__amount">+ ${record.value}</div>
+                    <div class="item__amount">+ ${priceFromatter.format(record.value)}</div>
                     <button class="item__remove">
                         <img src="./img/circle-green.svg" alt="delete" />
                     </button>
@@ -172,7 +203,7 @@ form.addEventListener('submit', function (event) {
                 <li data-id ="${record.id}" class="budget-list__item item item--expense">
                     <div class="item__title">${record.title}</div>
                     <div class="item__right">
-                    <div class="item__amount">- ${record.value}</div>
+                    <div class="item__amount">- ${priceFromatter.format(record.value)}</div>
                     <button class="item__remove">
                         <img src="./img/circle-red.svg" alt="delete" />
                     </button>
