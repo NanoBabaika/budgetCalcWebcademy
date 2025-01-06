@@ -82,7 +82,7 @@ function calcBudget () {
 
      const totalBudget = totalIncome - totalExpense;
 
-     expendsPercents = 0;
+     let expendsPercents = 0;
 
      if(totalIncome > 0) {
          expendsPercents = Math.round((totalExpense * 100) / totalIncome);

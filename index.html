@@ -31,7 +31,7 @@
         <div class="info-box__right">
           <div id="total-expense" class="info-box__value">{value}</div>
           <div id="expense-percents-wrapper" class="info-box__percents">
-            <div class="badge">{value%}</div>
+            <!-- <div class="badge">{value%}</div> -->
           </div>
         </div>
       </div>
@@ -73,35 +73,22 @@
       <div class="budget__col">
         <h2 class="title title--income">Доходы</h2>
         <ul id="incomes-list" class="budget-list">
-          <li class="budget-list__item item item--income">
-            <div class="item__title">Зарплата</div>
-            <div class="item__right">
-              <div class="item__amount">+ 2,100.00</div>
-              <button class="item__remove">
-                <img src="./img/circle-green.svg" alt="delete" />
-              </button>
-            </div>
-          </li>
         </ul>
       </div>
       <div class="budget__col">
         <h2 class="title title--expenses">Расходы</h2>
         <ul id="expenses-list" class="budget-list">
-          <li class="budget-list__item item item--expense">
-            <div class="item__title">Зарплата</div>
-            <div class="item__right">
-              <div class="item__amount">- 2,100.00</div>
-              <button class="item__remove">
-                <img src="./img/circle-red.svg" alt="delete" />
-              </button>
-            </div>
-          </li>
         </ul>
       </div>
     </section>
     <!-- // Budget table -->
 
     <!-- Скрипт -->
-    <script src="js/main.js"></script>
-  </body>
+    <!-- <script src="js/main.js"></script> -->
+
+    
+     <script src="./js/mvc/controler.js" type="module" ></script>
+     <script src="./js/mvc/model.js" type="module" ></script>
+     <script src="./js/mvc/view.js" type="module" ></script>
+    </body>
 </html>
